@@ -18,6 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
 
     - name: "Install cross-compilation toolchain"
       #run: sudo apt update && sudo apt --reinstall install mingw-w64 libgtk-3-dev libwebkit2gtk-4.0-dev build-essential ninja-build cmake zlib1g-dev libssl-dev libcairo2-dev libfreetype6 libfreetype6-dev libfreetype-dev libfontconfig1-dev xclip
