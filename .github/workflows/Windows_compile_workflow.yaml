@@ -2,7 +2,7 @@ name: FreeRDP Test Build
 
 on:
   push:
-    branches: [ * ]
+    branches: [ stable-* ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
