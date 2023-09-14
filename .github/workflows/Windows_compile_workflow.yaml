@@ -74,6 +74,6 @@ jobs:
     - name: "Build"
       run: mkdir build && 
            cd build && 
-           cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../mingw_toolchain.cmake -DZLIB_LIBRARY=/usr/local/zlib/lib/libz.so -DZLIB_INCLUDE_DIR=/usr/local/zlib/include -DCMAKE_BUILD_TYPE=Release -DWITH_SERVER=ON -DWITH_SAMPLE=ON -DWITH_PLATFORM_SERVER=OFF -DUSE_UNWIND=OFF -DCHANNEL_URBDRC=OFF ..
+           cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../mingw_toolchain.cmake -DOPENSSL_LIBRARIES=/usr/local/lib64/ -DZLIB_LIBRARY=/usr/local/zlib/lib/libz.so -DZLIB_INCLUDE_DIR=/usr/local/zlib/include -DCMAKE_BUILD_TYPE=Release -DWITH_SERVER=ON -DWITH_SAMPLE=ON -DWITH_PLATFORM_SERVER=OFF -DUSE_UNWIND=OFF -DCHANNEL_URBDRC=OFF ..
         
       #-DZLIB_LIBRARY=/usr/local/zlib/lib/libz.so -DZLIB_INCLUDE_DIR=/usr/local/zlib/include
