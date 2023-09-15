@@ -45,18 +45,16 @@ jobs:
         cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/mingw_toolchain.cmake -B SDL-build -S SDL -DCMAKE_BUILD_TYPE=Release -DSDL_TEST=OFF -DSDL_TESTS=OFF -DSDL_STATIC_PIC=ON -DCMAKE_INSTALL_PREFIX=/usr/x86_64-w64-mingw32
         sudo cmake --build SDL-build --target install
         
+    - name: "Cross Compile SDL_TTF"
+      run: |
+        git clone --depth 1 --shallow-submodules --recurse-submodules -b release-2.20.2 https://github.com/libsdl-org/SDL_ttf.git
+        cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/mingw_toolchain.cmake -B SDL_ttf-build -S SDL_ttf -DCMAKE_BUILD_TYPE=Release -DSDL2TTF_HARFBUZZ=ON -DSDL2TTF_FREETYPE=ON -DSDL2TTF_VENDORED=ON -DFT_DISABLE_ZLIB=OFF -DSDL2TTF_SAMPLES=OFF -DCMAKE_INSTALL_PREFIX=/usr/x86_64-w64-mingw32
+        sudo cmake --build SDL_ttf-build --target install
+        
     - name: "Debug LS 2"
-      run: ls          
-            
-    - name: "Checkout SDL_TTF"
-      run: git clone --depth 1 --shallow-submodules --recurse-submodules -b release-2.20.2 https://github.com/libsdl-org/SDL_ttf.git
-    
-    - name: Cross compile SDL_TTF 
-      run:  cd SDL_ttf && 
-            mkdir build && 
-            cd build &&
-            cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../../mingw_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DSDL2TTF_HARFBUZZ=ON -DSDL2TTF_FREETYPE=ON -DSDL2TTF_VENDORED=ON -DFT_DISABLE_ZLIB=OFF -DSDL2TTF_SAMPLES=OFF -DBUILD_SHARED_LIBS=OFF .. &&
-            sudo ninja install
+      run: |
+        ls
+        ls /usr/x86_64-w64-mingw32
             
     - name: "Build"
       run: mkdir build && 
