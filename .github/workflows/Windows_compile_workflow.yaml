@@ -56,9 +56,9 @@ jobs:
         ls
         ls /usr/x86_64-w64-mingw32
             
-    - name: "Build"
-      run: mkdir build && 
-           cd build && 
-           cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../mingw_toolchain.cmake -DOPENSSL_LIBRARIES=/usr/local/lib64/ -DZLIB_LIBRARY=/usr/local/zlib/lib/libz.so -DZLIB_INCLUDE_DIR=/usr/local/zlib/include -DCMAKE_BUILD_TYPE=Release -DWITH_SERVER=ON -DWITH_SAMPLE=ON -DWITH_PLATFORM_SERVER=OFF -DUSE_UNWIND=OFF -DCHANNEL_URBDRC=OFF ..
+    - name: "Cross Compile FreeRDP"
+      run: |
+        cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/mingw_toolchain.cmake -B freerdp-build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/x86_64-w64-mingw32 -DWITH_SERVER=ON -DWITH_SAMPLE=ON -DWITH_PLATFORM_SERVER=OFF -DUSE_UNWIND=OFF -DCHANNEL_URBDRC=OFF -DBUILD_SHARED_LIBS=OFF
+        sudo cmake --build freerdp-build --target install
         
       #-DZLIB_LIBRARY=/usr/local/zlib/lib/libz.so -DZLIB_INCLUDE_DIR=/usr/local/zlib/include
