@@ -54,7 +54,12 @@ jobs:
     - name: "Debug LS 2"
       run: |
         ls
+        echo "--"
         ls /usr/x86_64-w64-mingw32
+        echo "--"
+        ls /usr/x86_64-w64-mingw32/lib
+        echo "--"
+        ls /usr/x86_64-w64-mingw32/lib64
             
     - name: "Cross Compile FreeRDP"
       run: |
