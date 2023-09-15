@@ -77,5 +77,5 @@ jobs:
     - name: "Cross Compile FreeRDP"
       run: |
         cd ..
-        cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/mingw_toolchain.cmake -B freerdp-build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/x86_64-w64-mingw32 -DWITH_SERVER=ON -DWITH_SAMPLE=ON -DWITH_PLATFORM_SERVER=OFF -DUSE_UNWIND=OFF -DCHANNEL_URBDRC=OFF -DBUILD_SHARED_LIBS=OFF
+        cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/mingw_toolchain.cmake -B freerdp-build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/x86_64-w64-mingw32 -DWITH_SERVER=ON -DWITH_SAMPLE=ON -DWITH_PLATFORM_SERVER=OFF -DUSE_UNWIND=OFF -DCHANNEL_URBDRC=OFF -DBUILD_SHARED_LIBS=OFF -DWITH_FFMPEG=OFF -DWITH_SWSCALE=OFF -DWITH_DSP_FFMPEG=OFF
         sudo cmake --build freerdp-build --target install
