@@ -33,9 +33,10 @@ jobs:
     
     - name: Cross compile OpenSSL 
       run: |
+        cd openssl
         ./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- --prefix=${{ github.workspace }}/static_libs 
         make -j build_sw
-        sudo make -j install_sw 
+        make -j install_sw 
 #--prefix=/home/runner/work/FreeRDP/FreeRDP/openssl/build
 
     - name: "Debug LS 2"
