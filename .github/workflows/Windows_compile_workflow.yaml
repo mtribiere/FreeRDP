@@ -21,6 +21,12 @@ jobs:
       with:
         fetch-depth: 1
 
+    - name: "Apply source patch"
+      run: |
+        git clone https://github.com/msys2/MINGW-packages
+        git apply MINGW-packages/mingw-w64-freerdp/*.patch
+        
+
     - name: "Install cross-compilation toolchain"
       #run: sudo apt update && sudo apt --reinstall install mingw-w64 libgtk-3-dev libwebkit2gtk-4.0-dev build-essential ninja-build cmake zlib1g-dev libssl-dev libcairo2-dev libfreetype6 libfreetype6-dev libfreetype-dev libfontconfig1-dev xclip
       run: sudo apt update && sudo apt install mingw-w64 ninja-build build-essential git-core debhelper cdbs dpkg-dev autotools-dev cmake pkg-config xmlto libssl-dev docbook-xsl xsltproc libxkbfile-dev libx11-dev libwayland-dev libxrandr-dev libxi-dev libxrender-dev libxext-dev libxinerama-dev libxfixes-dev libxcursor-dev libxv-dev libxdamage-dev libxtst-dev libcups2-dev libpcsclite-dev libasound2-dev libpulse-dev libjpeg-dev libgsm1-dev libusb-1.0-0-dev libudev-dev libdbus-glib-1-dev uuid-dev libxml2-dev libfaad-dev libfaac-dev libcjson-dev libpkcs11-helper1-dev
