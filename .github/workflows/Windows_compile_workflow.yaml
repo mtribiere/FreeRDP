@@ -31,18 +31,17 @@ jobs:
         cd openssl
         ./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- --prefix=/usr/x86_64-w64-mingw32
         make -j build_sw
-        make -j install_sw 
-#--prefix=/home/runner/work/FreeRDP/FreeRDP/openssl/build
-
-    - name: "Debug LS 2"
-      run: ls
+        sudo make -j install_sw 
     
     - name: Cross compile cJSON 
       run: |
         git clone --depth 1 -b v1.7.16 https://github.com/DaveGamble/cJSON.git
         cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/mingw_toolchain.cmake -B cJSON-build -S cJSON -DCMAKE_BUILD_TYPE=Release -DENABLE_CJSON_TEST=OFF -DBUILD_SHARED_AND_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr/x86_64-w64-mingw32
-        cmake --build cJSON-build --target install
+        sudo cmake --build cJSON-build --target install
         
+    - name: "Debug LS 2"
+      run: ls
+    
     - name: "Checkout SDL"
       run: git clone --depth 1 -b release-2.28.1 https://github.com/libsdl-org/SDL.git
     
