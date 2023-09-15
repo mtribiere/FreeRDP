@@ -16,7 +16,7 @@ SET(CMAKE_READELF /usr/bin/x86_64-w64-mingw32-readelf)
 SET(CMAKE_OBJCOPY /usr/bin/x86_64-w64-mingw32-objcopy)
 SET(CMAKE_OBJDUMP /usr/bin/x86_64-w64-mingw32-objdump)
 
-SET(CMAKE_FIND_ROOT_PATH /usr/x86_64-w64-mingw32)
+SET(CMAKE_SYSROOT /usr/x86_64-w64-mingw32)
 SET(OPENSSL_ROOT_DIR /usr/x86_64-w64-mingw32/lib64/)
 SET(OPENSSL_LIBRARIES /usr/x86_64-w64-mingw32/lib64/)
 
