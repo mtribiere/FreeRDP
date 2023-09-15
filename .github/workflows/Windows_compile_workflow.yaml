@@ -24,7 +24,7 @@ jobs:
     - name: "Apply source patch"
       run: |
         git clone https://github.com/msys2/MINGW-packages
-        git apply MINGW-packages/mingw-w64-freerdp/*.patch
+        git apply MINGW-packages/mingw-w64-freerdp/0002-fix-build-errors-mingw.patch
         
 
     - name: "Install cross-compilation toolchain"
