@@ -26,16 +26,16 @@ jobs:
       run: sudo apt update && sudo apt install mingw-w64 ninja-build build-essential git-core debhelper cdbs dpkg-dev autotools-dev cmake pkg-config xmlto libssl-dev docbook-xsl xsltproc libxkbfile-dev libx11-dev libwayland-dev libxrandr-dev libxi-dev libxrender-dev libxext-dev libxinerama-dev libxfixes-dev libxcursor-dev libxv-dev libxdamage-dev libxtst-dev libcups2-dev libpcsclite-dev libasound2-dev libpulse-dev libjpeg-dev libgsm1-dev libusb-1.0-0-dev libudev-dev libdbus-glib-1-dev uuid-dev libxml2-dev libfaad-dev libfaac-dev libcjson-dev libpkcs11-helper1-dev
       
     - name: "Debug LS"
-      run: ls
+      run: mkdir static_libs && ls
     
     - name: "Checkout Openssl"
       run: git clone -b openssl-3.1.1 https://github.com/openssl/openssl.git
     
     - name: Cross compile OpenSSL 
-      run:  cd openssl &&
-            ./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- &&
-            make -j build_sw &&
-            sudo make -j install_sw 
+      run: |
+        ./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- --prefix=${{ github.workspace }}/static_libs 
+        make -j build_sw
+        sudo make -j install_sw 
 #--prefix=/home/runner/work/FreeRDP/FreeRDP/openssl/build
 
     - name: "Debug LS 2"
