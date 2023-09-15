@@ -25,16 +25,11 @@ jobs:
       #run: sudo apt update && sudo apt --reinstall install mingw-w64 libgtk-3-dev libwebkit2gtk-4.0-dev build-essential ninja-build cmake zlib1g-dev libssl-dev libcairo2-dev libfreetype6 libfreetype6-dev libfreetype-dev libfontconfig1-dev xclip
       run: sudo apt update && sudo apt install mingw-w64 ninja-build build-essential git-core debhelper cdbs dpkg-dev autotools-dev cmake pkg-config xmlto libssl-dev docbook-xsl xsltproc libxkbfile-dev libx11-dev libwayland-dev libxrandr-dev libxi-dev libxrender-dev libxext-dev libxinerama-dev libxfixes-dev libxcursor-dev libxv-dev libxdamage-dev libxtst-dev libcups2-dev libpcsclite-dev libasound2-dev libpulse-dev libjpeg-dev libgsm1-dev libusb-1.0-0-dev libudev-dev libdbus-glib-1-dev uuid-dev libxml2-dev libfaad-dev libfaac-dev libcjson-dev libpkcs11-helper1-dev
       
-    - name: "Debug LS"
-      run: mkdir static_libs && ls
-    
-    - name: "Checkout Openssl"
-      run: git clone -b openssl-3.1.1 https://github.com/openssl/openssl.git
-    
     - name: Cross compile OpenSSL 
       run: |
+        git clone -b openssl-3.1.1 https://github.com/openssl/openssl.git
         cd openssl
-        ./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- --prefix=${{ github.workspace }}/static_libs 
+        ./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- --prefix=/usr/x86_64-w64-mingw32
         make -j build_sw
         make -j install_sw 
 #--prefix=/home/runner/work/FreeRDP/FreeRDP/openssl/build
@@ -42,16 +37,12 @@ jobs:
     - name: "Debug LS 2"
       run: ls
     
-    - name: "Checkout cJSON"
-      run: git clone --depth 1 -b v1.7.16 https://github.com/DaveGamble/cJSON.git
-    
     - name: Cross compile cJSON 
-      run:  cd cJSON && 
-            mkdir build && 
-            cd build &&
-            cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../../mingw_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CJSON_TEST=OFF -DBUILD_SHARED_AND_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=../cJSON-install .. &&
-            sudo ninja install
-            
+      run: |
+        git clone --depth 1 -b v1.7.16 https://github.com/DaveGamble/cJSON.git
+        cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/mingw_toolchain.cmake -B cJSON-build -S cJSON -DCMAKE_BUILD_TYPE=Release -DENABLE_CJSON_TEST=OFF -DBUILD_SHARED_AND_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr/x86_64-w64-mingw32
+        cmake --build cJSON-build --target install
+        
     - name: "Checkout SDL"
       run: git clone --depth 1 -b release-2.28.1 https://github.com/libsdl-org/SDL.git
     
